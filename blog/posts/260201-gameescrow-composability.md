@@ -206,7 +206,7 @@ Each game is a single-file contract (`0X_GameName.sol`) showing a different patt
 
 **Ready to ship a game?** Fork the [Pockit Challenge Protocol](https://github.com/PockitCEO/Pockit-Challenge-Protocol), copy a sample game, and modify it. Deploy to your own GameEscrow instance or use ours when we launch on testnet.
 
-**Questions or want to collaborate?** Find me on [X/Twitter](https://x.com/prnthh) or [GitHub](https://github.com/PockitCEO).
+**Questions or want to collaborate?** Find me on [X/Twitter](https://x.com/pockitmilady) or [GitHub](https://github.com/PockitCEO).
 
 ---
 
