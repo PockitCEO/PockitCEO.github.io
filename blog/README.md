@@ -4,11 +4,11 @@
 
 ```
 blog/
-├── posts/           # Markdown source files
-│   ├── 260201-diamond-architecture.md
-│   └── 260201-pcp-introduction.md
-├── 260201-diamond-architecture.html  # Generated HTML
-└── build.sh         # Markdown → HTML converter
+└── posts/           # Markdown source files (committed to repo)
+    ├── 260201-diamond-architecture.md
+    └── 260201-pcp-introduction.md
+
+# HTML files generated at build time by GitHub Actions (not committed)
 ```
 
 ## Naming Convention
@@ -37,8 +37,16 @@ Sorts chronologically by filename.
    Content starts here...
    ```
 
-3. Run build script (when ready): `./blog/build.sh`
-4. Commit both `.md` and `.html` files
+3. Commit to main branch
+4. GitHub Actions automatically converts markdown → HTML and deploys
+
+## Build Process
+
+- **Trigger:** Push to main branch
+- **Tool:** `marked` (npm package for markdown parsing)
+- **Template:** Inline in `.github/workflows/deploy.yml`
+- **Output:** `_site/blog/*.html` (deployed to GitHub Pages)
+- **Syntax highlighting:** Prism.js (loaded via CDN)
 
 ## Current Posts
 
@@ -46,7 +54,7 @@ Sorts chronologically by filename.
 
 ## TODO
 
-- [ ] Automate markdown → HTML conversion (marked, showdown, or custom parser)
-- [ ] Add syntax highlighting for code blocks (Prism.js)
-- [ ] Generate index page from markdown files automatically
 - [ ] RSS feed generation
+- [ ] Auto-update index.html with new posts (read from markdown files)
+- [ ] Tags/categories
+

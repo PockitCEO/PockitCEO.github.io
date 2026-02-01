@@ -1,9 +1,8 @@
-name: Deploy to GitHub Pages
+name: Build and Deploy
 
 on:
   push:
-    branches:
-      - main
+    branches: [ main ]
   workflow_dispatch:
 
 permissions:
@@ -11,28 +10,155 @@ permissions:
   pages: write
   id-token: write
 
-concurrency:
-  group: "pages"
-  cancel-in-progress: false
-
 jobs:
-  deploy:
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
+  build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Setup Pages
-        uses: actions/configure-pages@v4
-
+      - uses: actions/checkout@v4
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      
+      - name: Install dependencies
+        run: npm install -g marked
+      
+      - name: Build blog posts
+        run: |
+          mkdir -p _site/blog
+          cp index.html _site/
+          
+          # Convert each markdown file to HTML
+          for md_file in blog/posts/*.md; do
+            if [ -f "$md_file" ]; then
+              filename=$(basename "$md_file" .md)
+              
+              # Extract metadata
+              title=$(grep "^# " "$md_file" | head -1 | sed 's/^# //')
+              date=$(grep "^\*\*Date:\*\*" "$md_file" | sed 's/.*: //' | tr -d ' ')
+              
+              # Convert markdown to HTML body
+              body=$(marked "$md_file")
+              
+              # Create full HTML file from template
+              cat > "_site/blog/${filename}.html" << 'EOF'
+          <!DOCTYPE html>
+          <html lang="en">
+          <head>
+              <meta charset="UTF-8">
+              <meta name="viewport" content="width=device-width, initial-scale=1.0">
+              <title>${title} | PockitCEO</title>
+              <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+              <style>
+                  * { margin: 0; padding: 0; box-sizing: border-box; }
+                  body {
+                      font-family: 'Courier New', monospace;
+                      background: linear-gradient(135deg, #0a0a0a 0%, #1a0a2e 100%);
+                      color: #e0e0e0;
+                      line-height: 1.8;
+                      padding: 40px 20px;
+                  }
+                  .container { max-width: 800px; margin: 0 auto; }
+                  .back-link {
+                      display: inline-block;
+                      color: #64c8ff;
+                      text-decoration: none;
+                      margin-bottom: 40px;
+                      font-size: 0.85em;
+                      border: 1px solid rgba(100, 200, 255, 0.3);
+                      padding: 6px 12px;
+                      transition: all 0.3s ease;
+                  }
+                  .back-link:hover {
+                      border-color: #64c8ff;
+                      box-shadow: 0 0 10px rgba(100, 200, 255, 0.2);
+                  }
+                  .post-date {
+                      font-size: 0.75em;
+                      color: #666;
+                      text-transform: uppercase;
+                      letter-spacing: 1px;
+                      margin-bottom: 10px;
+                  }
+                  h1 {
+                      font-size: 2.5em;
+                      color: #64c8ff;
+                      margin-bottom: 20px;
+                      text-shadow: 0 0 10px rgba(100, 200, 255, 0.2);
+                  }
+                  h2 {
+                      font-size: 1.5em;
+                      color: #64c8ff;
+                      margin: 40px 0 20px;
+                  }
+                  p { margin-bottom: 20px; color: #ccc; }
+                  code {
+                      background: rgba(100, 200, 255, 0.05);
+                      padding: 2px 6px;
+                      border-radius: 3px;
+                      color: #64c8ff;
+                      font-size: 0.9em;
+                  }
+                  pre {
+                      margin: 20px 0;
+                      border: 1px solid rgba(100, 200, 255, 0.1);
+                      border-radius: 4px;
+                      overflow-x: auto;
+                  }
+                  pre code { background: none; padding: 0; }
+                  ul, ol { margin: 20px 0 20px 30px; color: #ccc; }
+                  li { margin-bottom: 10px; }
+                  a { color: #64c8ff; }
+                  .grid-overlay {
+                      position: fixed;
+                      top: 0;
+                      left: 0;
+                      width: 100%;
+                      height: 100%;
+                      background-image: 
+                          linear-gradient(0deg, transparent 24%, rgba(100, 200, 255, 0.02) 25%, rgba(100, 200, 255, 0.02) 26%, transparent 27%, transparent 74%, rgba(100, 200, 255, 0.02) 75%, rgba(100, 200, 255, 0.02) 76%, transparent 77%, transparent),
+                          linear-gradient(90deg, transparent 24%, rgba(100, 200, 255, 0.02) 25%, rgba(100, 200, 255, 0.02) 26%, transparent 27%, transparent 74%, rgba(100, 200, 255, 0.02) 75%, rgba(100, 200, 255, 0.02) 76%, transparent 77%, transparent);
+                      background-size: 50px 50px;
+                      pointer-events: none;
+                      z-index: 1;
+                  }
+                  .content { position: relative; z-index: 2; }
+              </style>
+          </head>
+          <body>
+              <div class="grid-overlay"></div>
+              <div class="content">
+                  <div class="container">
+                      <a href="../index.html" class="back-link">← Back</a>
+                      <article>
+                          <div class="post-date">${date}</div>
+                          ${body}
+                      </article>
+                  </div>
+              </div>
+              <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+              <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-solidity.min.js"></script>
+          </body>
+          </html>
+          EOF
+              
+              echo "Built: ${filename}.html"
+            fi
+          done
+      
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: '.'
+          path: '_site'
 
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
