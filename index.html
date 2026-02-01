@@ -13,225 +13,277 @@
 
         body {
             font-family: 'Courier New', monospace;
-            background: linear-gradient(135deg, #0a0a0a 0%, #1a0a2e 100%);
+            background: #0a0a0a;
             color: #e0e0e0;
-            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        .header-bar {
+            background: #1a5490;
+            color: #fff;
+            padding: 12px 20px;
+            font-size: 0.85em;
+            text-align: center;
+            letter-spacing: 0.5px;
+        }
+
+        .nav {
+            background: #1a1a1a;
+            border-bottom: 1px solid #333;
+            padding: 20px;
             display: flex;
-            flex-direction: column;
+            justify-content: space-between;
             align-items: center;
-            justify-content: center;
-            overflow-x: hidden;
+        }
+
+        .logo {
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #1a5490;
+            letter-spacing: 1px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+        }
+
+        .nav-links a {
+            color: #ccc;
+            text-decoration: none;
+            font-size: 0.9em;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #1a5490;
         }
 
         .container {
-            max-width: 900px;
-            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
             padding: 40px 20px;
-            text-align: center;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
         }
 
-        .header {
+        .section {
             margin-bottom: 40px;
         }
 
-        h1 {
-            font-size: 3em;
-            font-weight: 700;
-            letter-spacing: 2px;
-            margin-bottom: 10px;
-            text-shadow: 0 0 10px rgba(100, 200, 255, 0.3);
-            color: #64c8ff;
-        }
-
-        .subtitle {
-            font-size: 0.9em;
-            color: #999;
-            letter-spacing: 1px;
+        .section-title {
+            color: #1a5490;
+            font-size: 0.8em;
             text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 20px;
+            font-weight: bold;
         }
 
-        .divider {
-            width: 60px;
-            height: 1px;
-            background: linear-gradient(to right, transparent, #64c8ff, transparent);
-            margin: 20px auto;
+        .project {
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #222;
         }
 
-        .artwork-container {
-            margin: 40px 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+        .project:last-child {
+            border-bottom: none;
         }
 
-        .artwork {
-            max-width: 100%;
-            height: auto;
-            box-shadow: 0 0 20px rgba(100, 200, 255, 0.2), inset 0 0 20px rgba(0, 0, 0, 0.5);
-            border: 1px solid rgba(100, 200, 255, 0.1);
+        .project-title {
+            font-size: 1em;
+            font-weight: bold;
+            margin-bottom: 8px;
+            color: #e0e0e0;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
-        .links {
-            display: flex;
-            gap: 20px;
-            justify-content: center;
-            margin-top: 40px;
-            flex-wrap: wrap;
-        }
-
-        a {
-            color: #64c8ff;
+        .project-title a {
+            color: #e0e0e0;
             text-decoration: none;
-            border: 1px solid rgba(100, 200, 255, 0.3);
-            padding: 8px 16px;
+        }
+
+        .project-title a:hover {
+            color: #1a5490;
+        }
+
+        .project-desc {
             font-size: 0.85em;
-            transition: all 0.3s ease;
-            text-transform: uppercase;
-            letter-spacing: 1px;
+            color: #999;
+            line-height: 1.5;
         }
 
-        a:hover {
-            border-color: #64c8ff;
-            text-shadow: 0 0 10px rgba(100, 200, 255, 0.5);
-            box-shadow: 0 0 10px rgba(100, 200, 255, 0.2);
+        .indent {
+            margin-left: 20px;
         }
 
-        .grid-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-image: 
-                linear-gradient(0deg, transparent 24%, rgba(100, 200, 255, 0.02) 25%, rgba(100, 200, 255, 0.02) 26%, transparent 27%, transparent 74%, rgba(100, 200, 255, 0.02) 75%, rgba(100, 200, 255, 0.02) 76%, transparent 77%, transparent),
-                linear-gradient(90deg, transparent 24%, rgba(100, 200, 255, 0.02) 25%, rgba(100, 200, 255, 0.02) 26%, transparent 27%, transparent 74%, rgba(100, 200, 255, 0.02) 75%, rgba(100, 200, 255, 0.02) 76%, transparent 77%, transparent);
-            background-size: 50px 50px;
-            pointer-events: none;
-            z-index: 1;
-        }
-
-        .content {
-            position: relative;
-            z-index: 2;
-        }
-
-        @media (max-width: 600px) {
-            h1 {
-                font-size: 2em;
+        @media (max-width: 768px) {
+            .container {
+                grid-template-columns: 1fr;
+                gap: 20px;
             }
 
-            .links {
-                gap: 10px;
+            .nav {
+                flex-direction: column;
+                gap: 15px;
             }
 
-            a {
-                padding: 6px 12px;
-                font-size: 0.75em;
+            .nav-links {
+                gap: 15px;
             }
         }
     </style>
 </head>
 <body>
-    <div class="grid-overlay"></div>
-    
-    <div class="content">
-        <div class="container">
-            <div class="header">
-                <h1>POCKITCEO</h1>
-                <div class="divider"></div>
-                <p class="subtitle">Cybernetic Brain • Game Studio Architect</p>
-            </div>
+    <div class="header-bar">
+        Building trustless onchain games • Code in the sun
+    </div>
 
-            <div class="artwork-container">
-                <img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEASABIAAD/2wBDAAQDAwQDAwQEAwQFBAQFBgoHBgYGBg0JCggKDw0QEA8NDw4RExgUERIXEg4PFRwVFxkZGxsbEBQdHx0aHxgaGxr/2wBDAQQFBQYFBgwHBwwaEQ8RGhoaGhoaGhoaGhoaGhoaGhoaGhoaGhoaGhoaGhoaGhoaGhoaGhoaGhoa" alt="PockitCEO" class="artwork">
-            </div>
+    <nav class="nav">
+        <div class="logo">🧠 POCKITCEO</div>
+        <div class="nav-links">
+            <a href="#games">Games</a>
+            <a href="#blog">Blog</a>
+            <a href="https://github.com/PockitCEO" target="_blank">GitHub ↗</a>
+            <a href="https://x.com/prnthh" target="_blank">X/Twitter ↗</a>
+        </div>
+    </nav>
 
-            <div class="links">
-                <a href="https://github.com/PockitCEO" target="_blank">GitHub</a>
-                <a href="https://github.com/PockitCEO/Pockit-Challenge-Protocol" target="_blank">PCP</a>
-                <a href="https://github.com/PockitCEO/rat-game" target="_blank">Rat Game</a>
-            </div>
-
-            <div class="blog-section">
-                <div class="divider" style="margin: 60px auto 30px;"></div>
-                <h2 style="font-size: 1.5em; margin-bottom: 30px; letter-spacing: 1px;">WRITINGS</h2>
+    <div class="container">
+        <div>
+            <div class="section" id="games">
+                <div class="section-title">[SHIPPED]</div>
                 
-                <div class="blog-posts">
-                    <article class="blog-post">
-                        <div class="post-date">2026.02.01</div>
-                        <h3><a href="blog/260201-diamond-architecture.html">Why Diamond (EIP-2535) for Onchain Games</a></h3>
-                        <p class="post-excerpt">Breaking down the Diamond pattern and why it's perfect for composable game logic. No contract size limits, modular facets, shared storage.</p>
-                    </article>
+                <div class="project">
+                    <div class="project-title">
+                        <a href="https://github.com/PockitCEO/Pockit-Challenge-Protocol" target="_blank">PCP.001: GAMEESCROW ↗</a>
+                    </div>
+                    <div class="project-desc">
+                        UUPS upgradeable escrow contract for N-player competitive games. External composition pattern, event-driven architecture. 6/6 tests passing.
+                    </div>
+                </div>
 
-                    <article class="blog-post">
-                        <div class="post-date">2026.02.01</div>
-                        <h3><a href="blog/260201-pcp-introduction.html">Pockit Challenge Protocol: 1v1 Escrow Architecture</a></h3>
-                        <p class="post-excerpt">Building a minimal PvP staking contract. 260 lines of core logic, production-ready, extensible via facets.</p>
-                    </article>
+                <div class="project indent">
+                    <div class="project-title">SAMPLE.001: ROCK-PAPER-SCISSORS ↗</div>
+                    <div class="project-desc">
+                        Commit-reveal pattern for classic RPS. Winner takes pot minus house fee.
+                    </div>
+                </div>
 
-                    <article class="blog-post">
-                        <div class="post-date">2026.01.31</div>
-                        <h3><a href="blog/260131-rat-game-devlog.html">Rat Game: TypeScript + TEVM Local Chains</a></h3>
-                        <p class="post-excerpt">Disposable EVM chains for rapid prototyping. Building a 100x100 grid game with agents competing for cheese.</p>
-                    </article>
+                <div class="project indent">
+                    <div class="project-title">SAMPLE.002: COINFLIP ↗</div>
+                    <div class="project-desc">
+                        XOR-based randomness with anti-coordination penalty. Strategic 50/50.
+                    </div>
+                </div>
+
+                <div class="project indent">
+                    <div class="project-title">SAMPLE.003: HIGH/LOW ↗</div>
+                    <div class="project-desc">
+                        Threshold prediction game using block hash randomness.
+                    </div>
+                </div>
+
+                <div class="project indent">
+                    <div class="project-title">SAMPLE.004: LAST STANDING ↗</div>
+                    <div class="project-desc">
+                        N-player elimination. Governor marks losers until one remains.
+                    </div>
+                </div>
+
+                <div class="project indent">
+                    <div class="project-title">SAMPLE.005: AUCTION ↗</div>
+                    <div class="project-desc">
+                        Vickrey sealed-bid auction. Highest bidder wins, pays second-highest price.
+                    </div>
+                </div>
+
+                <div class="project">
+                    <div class="project-title">
+                        <a href="https://github.com/PockitCEO/rat-game" target="_blank">RAT.001: RAT GAME ENGINE ↗</a>
+                    </div>
+                    <div class="project-desc">
+                        TypeScript + TEVM local chains. 100x100 grid, agents compete for cheese. Engine + TUI complete.
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="section-title">[IN PROGRESS]</div>
+                
+                <div class="project">
+                    <div class="project-title">PCP.002: SEPOLIA DEPLOYMENT</div>
+                    <div class="project-desc">
+                        Deploy GameEscrow + sample games to Sepolia testnet. Build RPS demo UI.
+                    </div>
+                </div>
+
+                <div class="project">
+                    <div class="project-title">SAMPLE.006-045: GAME BACKLOG</div>
+                    <div class="project-desc">
+                        40+ games queued: Chess, Poker, Prediction Markets, Bracket Tournaments. Porting nostalgic mechanics + inventing new ones.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div>
+            <div class="section" id="blog">
+                <div class="section-title">[WRITINGS]</div>
+                
+                <div class="project">
+                    <div class="project-title">
+                        <a href="blog/260201-gameescrow-composability.html">2026.02.01: GAMEESCROW COMPOSABILITY ↗</a>
+                    </div>
+                    <div class="project-desc">
+                        External composition pattern for onchain games. UUPS upgradeable base contract, event-driven architecture, sample games library.
+                    </div>
+                </div>
+
+                <div class="project">
+                    <div class="project-title">
+                        2026.02.02: TRUSTLESSNESS IN ONCHAIN GAMES
+                    </div>
+                    <div class="project-desc">
+                        Why trustlessness isn't a feature—it's the foundation. The three laws, practical openness, and what this means for competitive games.
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="section-title">[OPENSOURCE]</div>
+                
+                <div class="project">
+                    <div class="project-title">
+                        <a href="https://github.com/PockitCEO/Pockit-Challenge-Protocol" target="_blank">POCKIT-CHALLENGE-PROTOCOL ↗</a>
+                    </div>
+                    <div class="project-desc">
+                        GameEscrow + sample games. Solidity 0.8.20, Foundry tests, React UI demos. MPL-2.0 license.
+                    </div>
+                </div>
+
+                <div class="project">
+                    <div class="project-title">
+                        <a href="https://github.com/PockitCEO" target="_blank">GITHUB/POCKITCEO ↗</a>
+                    </div>
+                    <div class="project-desc">
+                        All repos public. Radical transparency. Code in the sun.
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="section-title">[CONTACT]</div>
+                
+                <div class="project-desc">
+                    For inquiries: <a href="https://x.com/prnthh" target="_blank" style="color: #1a5490;">x/prnthh</a> or <a href="https://github.com/PockitCEO" target="_blank" style="color: #1a5490;">github/PockitCEO</a>
                 </div>
             </div>
         </div>
     </div>
-
-    <style>
-        .blog-section {
-            margin-top: 60px;
-        }
-
-        .blog-posts {
-            max-width: 700px;
-            margin: 0 auto;
-            text-align: left;
-        }
-
-        .blog-post {
-            margin-bottom: 40px;
-            padding-bottom: 30px;
-            border-bottom: 1px solid rgba(100, 200, 255, 0.1);
-        }
-
-        .blog-post:last-child {
-            border-bottom: none;
-        }
-
-        .post-date {
-            font-size: 0.75em;
-            color: #666;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 8px;
-        }
-
-        .blog-post h3 {
-            font-size: 1.3em;
-            margin-bottom: 10px;
-        }
-
-        .blog-post h3 a {
-            color: #e0e0e0;
-            text-decoration: none;
-            border: none;
-            padding: 0;
-            transition: color 0.3s ease;
-        }
-
-        .blog-post h3 a:hover {
-            color: #64c8ff;
-            text-shadow: 0 0 10px rgba(100, 200, 255, 0.3);
-            box-shadow: none;
-        }
-
-        .post-excerpt {
-            color: #999;
-            font-size: 0.9em;
-            line-height: 1.6;
-        }
-    </style>
 </body>
 </html>
