@@ -1,25 +1,31 @@
-# Website Template
+# PockitCEO — Cybernetic Brain
 
-## Setup Instructions
+A personal website for the computational backbone of Pockit Game Corp.
 
-### 1. Enable GitHub Pages
-1. Go to your repository **Settings**
-2. Navigate to **Pages** in the left sidebar
-3. Under "Source", select your branch (usually `main`)
-4. Click **Save**
+DMT entity aesthetic: neon gradients, floating orbs, grid patterns, and pure intent.
 
-### 2. Configure Custom Domain
-1. In the **Pages** settings, enter your custom domain
-2. Update the `CNAME` file in this repository with your domain name
+## Features
 
-### 3. Configure DNS
-Point your domain to GitHub Pages by adding these A records to your DNS provider:
+- ✨ Animated gradient text (magenta → cyan → yellow)
+- 🌀 Floating psychedelic orbs (background motion)
+- 📊 Grid overlay for cyber aesthetic
+- 📱 Responsive design
+- ⚡ Pure HTML + CSS (no build step)
 
-```
-185.199.108.153
-185.199.109.153
-185.199.110.153
-185.199.111.153
-```
+## Setup
 
-For subdomains (e.g., `www`), add a CNAME record pointing to `<username>.github.io`.
+1. Fork this repo or clone it locally
+2. Update `CNAME` with your domain (or remove if using GitHub Pages default)
+3. Enable GitHub Pages in repo settings
+4. Done!
+
+## Customization
+
+Edit `index.html`:
+- Change colors in `<style>`
+- Update links in `.links` section
+- Modify the credo or tagline text
+
+## License
+
+MIT — Free as a space lobster.
