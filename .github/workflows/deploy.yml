@@ -34,15 +34,17 @@ jobs:
             if [ -f "$md_file" ]; then
               filename=$(basename "$md_file" .md)
               
-              # Extract metadata
+              # Extract title from markdown
               title=$(grep "^# " "$md_file" | head -1 | sed 's/^# //')
-              date=$(grep "^\*\*Date:\*\*" "$md_file" | sed 's/.*: //' | tr -d ' ')
+              
+              # Extract date (look for *Month Day, Year* pattern)
+              date=$(grep "^\*" "$md_file" | head -1 | sed 's/\*//g' | xargs)
               
               # Convert markdown to HTML body
               body=$(marked "$md_file")
               
-              # Create full HTML file from template
-              cat > "_site/blog/${filename}.html" << 'EOF'
+              # Create full HTML file from template (using double quotes for variable expansion)
+              cat > "_site/blog/${filename}.html" << EOF
           <!DOCTYPE html>
           <html lang="en">
           <head>
@@ -54,7 +56,7 @@ jobs:
                   * { margin: 0; padding: 0; box-sizing: border-box; }
                   body {
                       font-family: 'Courier New', monospace;
-                      background: linear-gradient(135deg, #0a0a0a 0%, #1a0a2e 100%);
+                      background: #0a0a0a;
                       color: #e0e0e0;
                       line-height: 1.8;
                       padding: 40px 20px;
@@ -62,17 +64,16 @@ jobs:
                   .container { max-width: 800px; margin: 0 auto; }
                   .back-link {
                       display: inline-block;
-                      color: #64c8ff;
+                      color: #1a5490;
                       text-decoration: none;
                       margin-bottom: 40px;
                       font-size: 0.85em;
-                      border: 1px solid rgba(100, 200, 255, 0.3);
+                      border: 1px solid #1a5490;
                       padding: 6px 12px;
                       transition: all 0.3s ease;
                   }
                   .back-link:hover {
-                      border-color: #64c8ff;
-                      box-shadow: 0 0 10px rgba(100, 200, 255, 0.2);
+                      background: rgba(26, 84, 144, 0.1);
                   }
                   .post-date {
                       font-size: 0.75em;
@@ -83,59 +84,52 @@ jobs:
                   }
                   h1 {
                       font-size: 2.5em;
-                      color: #64c8ff;
+                      color: #e0e0e0;
                       margin-bottom: 20px;
-                      text-shadow: 0 0 10px rgba(100, 200, 255, 0.2);
                   }
                   h2 {
                       font-size: 1.5em;
-                      color: #64c8ff;
+                      color: #e0e0e0;
                       margin: 40px 0 20px;
+                      border-bottom: 1px solid #222;
+                      padding-bottom: 10px;
                   }
                   p { margin-bottom: 20px; color: #ccc; }
                   code {
-                      background: rgba(100, 200, 255, 0.05);
+                      background: #1a1a1a;
                       padding: 2px 6px;
                       border-radius: 3px;
-                      color: #64c8ff;
+                      color: #1a5490;
                       font-size: 0.9em;
                   }
                   pre {
                       margin: 20px 0;
-                      border: 1px solid rgba(100, 200, 255, 0.1);
+                      border: 1px solid #222;
                       border-radius: 4px;
                       overflow-x: auto;
+                      background: #0f0f0f !important;
                   }
-                  pre code { background: none; padding: 0; }
+                  pre code { 
+                      background: none; 
+                      padding: 0;
+                      color: #e0e0e0;
+                  }
                   ul, ol { margin: 20px 0 20px 30px; color: #ccc; }
                   li { margin-bottom: 10px; }
-                  a { color: #64c8ff; }
-                  .grid-overlay {
-                      position: fixed;
-                      top: 0;
-                      left: 0;
-                      width: 100%;
-                      height: 100%;
-                      background-image: 
-                          linear-gradient(0deg, transparent 24%, rgba(100, 200, 255, 0.02) 25%, rgba(100, 200, 255, 0.02) 26%, transparent 27%, transparent 74%, rgba(100, 200, 255, 0.02) 75%, rgba(100, 200, 255, 0.02) 76%, transparent 77%, transparent),
-                          linear-gradient(90deg, transparent 24%, rgba(100, 200, 255, 0.02) 25%, rgba(100, 200, 255, 0.02) 26%, transparent 27%, transparent 74%, rgba(100, 200, 255, 0.02) 75%, rgba(100, 200, 255, 0.02) 76%, transparent 77%, transparent);
-                      background-size: 50px 50px;
-                      pointer-events: none;
-                      z-index: 1;
-                  }
-                  .content { position: relative; z-index: 2; }
+                  a { color: #1a5490; text-decoration: none; }
+                  a:hover { text-decoration: underline; }
+                  strong { color: #e0e0e0; }
+                  em { color: #999; font-style: italic; }
+                  hr { border: none; border-top: 1px solid #222; margin: 40px 0; }
               </style>
           </head>
           <body>
-              <div class="grid-overlay"></div>
-              <div class="content">
-                  <div class="container">
-                      <a href="../index.html" class="back-link">← Back</a>
-                      <article>
-                          <div class="post-date">${date}</div>
-                          ${body}
-                      </article>
-                  </div>
+              <div class="container">
+                  <a href="../index.html" class="back-link">← Back</a>
+                  <article>
+                      <div class="post-date">${date}</div>
+                      ${body}
+                  </article>
               </div>
               <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
               <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-solidity.min.js"></script>
