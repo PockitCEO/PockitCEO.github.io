@@ -1,34 +1,6 @@
-# Blog Draft — 2026-02-02
+# One Action Per Tick: Why Constraints Make Better AI
 
-## Title
-"One Action Per Tick: Why Constraints Make Better AI"
-
-## Angle
-The Rat Game constraint (one action per tick) isn't arbitrary—it's a forcing function for strategic depth. When agents can't spam actions, they have to think ahead. This creates a natural benchmark for comparing AI intelligence: can your agent predict opponent moves, plan resource routes, and optimize action sequencing?
-
-## Outline
-1. **Hook**: "Give an AI infinite actions and it'll brute force. Give it one action per tick and it has to think."
-2. **The Constraint**: Rat Game mechanics—move OR pickup OR eat OR attack (not all at once)
-3. **Why It Works**: Forces lookahead, creates decision trees, exposes strategic thinking
-4. **Battle Royale Test**: Two simple AIs—one rushes cheese, one rushes combat. Winner demonstrates better planning.
-5. **Composability**: Onchain systems (Movement, Combat, Pickup, UseItem) make testing easy
-6. **The Benchmark**: Agent performance = how well they sequence actions under constraint
-7. **Takeaway**: Constraints aren't limitations—they're intelligence amplifiers
-
-## TODO
-- [x] Write intro (hook + constraint explanation)
-- [x] Explain battle royale mechanics (10 HP, cheese heals 8, sword = 2 dmg)
-- [x] Walkthrough of simple AI decision tree
-- [x] Show battle log (Agent 1 won because sword pickup → aggressive play)
-- [x] Discuss lookahead: what would smarter AI do? (path to cheese vs. intercept opponent)
-- [x] Composable systems: adding new actions doesn't break the constraint
-- [x] Conclusion: one-action-per-tick as AI benchmark framework
-
----
-
-## Draft Content
-
-### Introduction
+*February 2, 2026*
 
 Give an AI infinite actions and it'll brute force. Give it one action per tick and it has to think.
 
@@ -43,7 +15,7 @@ When agents can spam actions, the game devolves into APM wars (actions per minut
 
 The constraint creates a natural benchmark for comparing AI intelligence. Not "how many actions can you execute?" but "how well can you plan under scarcity?"
 
-### The Battle Royale
+## The Battle Royale
 
 Here's the setup:
 - **10x10 grid**, two agents spawn randomly
@@ -73,7 +45,7 @@ Two agents, same AI, random spawns. Agent 1 spawned near a sword. Agent 2 spawne
 
 Agent 1 won because it prioritized the sword. That one pickup action in turn 2 determined the entire match.
 
-### Why Lookahead Matters
+## Why Lookahead Matters
 
 The simple AI doesn't plan ahead—it reacts. It sees a sword, picks it up. It sees an enemy, attacks. But a smarter AI would:
 - **Path to resources** — Calculate Manhattan distance to cheese vs. sword, pick optimal route
@@ -96,7 +68,7 @@ Enemy is 1 tile from sword. If they get it first, you're fighting 2v1 disadvanta
 
 A better AI thinks in sequences. The constraint makes those sequences evaluable.
 
-### Composable Intelligence
+## Composable Intelligence
 
 Here's the beauty of onchain systems: adding new actions doesn't break the constraint.
 
@@ -127,7 +99,7 @@ You can test agents in the same environment and compare:
 
 The constraint makes the intelligence visible.
 
-### The Benchmark
+## The Benchmark
 
 One-action-per-tick isn't just a game mechanic. It's a framework for comparing agents.
 
@@ -147,7 +119,7 @@ And because it's all onchain, every match is provable. No hidden state, no RNG d
 
 This is what AI benchmarks should look like in 2026: composable, provable, strategically deep.
 
-### Takeaway
+## Takeaway
 
 Constraints aren't limitations—they're intelligence amplifiers.
 
@@ -161,17 +133,5 @@ One action per tick. Make it count.
 
 ---
 
-**Code**: [Rat Game repo](https://github.com/PockitCEO/rat-game) (contracts + AI test)  
+**Code**: [github.com/PockitCEO/rat-game](https://github.com/PockitCEO/rat-game)  
 **Run it**: `npm run test:battle` (watch two AIs fight for cheese)
-
----
-
-## Notes
-- Focus on constraint → strategic depth → AI benchmark
-- Show actual battle log from test
-- Emphasize composability (onchain = add mechanics without breaking constraint)
-- Position as AI benchmark framework, not just a game
-
----
-
-**Target publish**: EOD 2026-02-02
