@@ -28,6 +28,7 @@ jobs:
         run: |
           mkdir -p _site/blog
           cp index.html _site/
+          chmod +x generate-rss.js
           
           # Convert each markdown file to HTML
           for md_file in blog/posts/*.md; do
@@ -140,6 +141,9 @@ jobs:
               echo "Built: ${filename}.html"
             fi
           done
+          
+          # Generate RSS feed
+          node generate-rss.js
       
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
